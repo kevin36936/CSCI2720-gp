@@ -18,4 +18,3 @@ In “backend”:
 npm init -y
 create index.js, copy from “/text/index.js”
 “node index.js” in “backend”, “npm start” in “frontend/my-app/”
-
