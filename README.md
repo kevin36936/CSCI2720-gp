@@ -13,7 +13,7 @@ create two folders “backend” "frontend"
 
 IN “backend”:
 
-npm install bcrypt jsonwebtoken dotenv body-parser
+npm install dotenv body-parser
 
 
 In “frontend”:
