@@ -41,4 +41,4 @@ create index.js, copy from “/text/index.js”
 
 #Dataset
 
-parsing.js can be used to build the database for events (Working in progress)
+Use parsingEvents.js and parsingVenues.js to build the database. "node parsingEvents.js" for example. Create the corresponding collection inside the database first.
