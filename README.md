@@ -38,3 +38,7 @@ npm init -y
 create index.js, copy from “/text/index.js”
 
 “node index.js” in “backend”, “npm start” in “frontend/my-app/”
+
+#Dataset
+
+parsing.js can be used to build the database for events (Working in progress)
