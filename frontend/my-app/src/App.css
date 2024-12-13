@@ -1,3 +1,8 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
 .App {
   text-align: center;
 }
@@ -18,9 +23,10 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  /* remove so it dont lock every thing in the middle */
+  /* align-items: center;
+  justify-content: center; */
+  /* font-size: calc(10px + 2vmin); */
   color: white;
 }
 
@@ -35,4 +41,311 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.navBar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  /* position: absolute; */
+  left: 1/2;
+  transform: translateX(1/2);
+  width: 100%;
+  height: 48px;
+  background-color: slategrey;
+  font-size: larger;
+}
+
+/* this is the css for the events page */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  max-width: 105rem;
+  margin: 2.5rem auto;
+  width: 100%;
+}
+
+.title {
+  font-size: 2rem; /* text-3xl */
+  font-weight: bold; /* font-bold */
+  color: white; /* text-gray-800 */
+  margin-bottom: 1rem; /* mb-6 */
+}
+
+.subtitle {
+  font-size: 1.125rem; /* text-lg */
+  color: white; /* text-gray-600 */
+  margin-bottom: 2rem; /* mb-8 */
+}
+
+.event-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-left: 0.75rem; /* -mx-3 */
+  margin-right: 0.75rem; /* -mx-3 */
+}
+
+.event-card {
+  width: 100%; /* w-full */
+  padding: 0 0.75rem;
+  margin-bottom: 1.5rem; /* mb-6 */
+  cursor: pointer; /* cursor-pointer */
+}
+
+.event-card-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: white; /* bg-white */
+  border-radius: 0.5rem; /* rounded-lg */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* shadow-md */
+  transition: box-shadow 0.3s; /* transition-shadow duration-300 */
+}
+
+.event-card-inner2 {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 1.5rem;
+}
+
+.event-card-inner:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* hover:shadow-lg */
+}
+
+.event-title {
+  font-size: 1.25rem; /* text-xl */
+  font-weight: 600; /* font-semibold */
+  color: #4b5563; /* text-gray-800 */
+  margin-bottom: 0.75rem; /* mb-3 */
+}
+
+.event-details {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 0.5rem; /* space-y-2 */
+}
+
+.event-detail {
+  display: flex;
+  align-items: center;
+  color: #4b5563; /* text-gray-600 */
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 2.5rem; /* h-10 */
+  color: white; /* text-gray-600 */
+}
+
+.loading-observer {
+  height: 2.5rem; /* h-10 */
+}
+
+.icons {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-right: 8px;
+  flex-shrink: 0;
+}
+
+/* Media Queries */
+@media (min-width: 768px) {
+  .event-card {
+    width: calc(50% - 1.5rem); /* md:w-1/2 */
+  }
+}
+
+@media (min-width: 1024px) {
+  .event-card {
+    width: calc(33.333% - 1.5rem); /* lg:w-1/3 */
+  }
+}
+
+/* this is the css for the eventid page */
+
+.eventid-container {
+  max-width: 96rem; /* max-w-6xl */
+  margin: 3rem auto; /* mt-12 */
+  background: white; /* bg-white */
+  border-radius: 0.5rem; /* rounded-lg */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* shadow-md */
+  overflow: hidden; /* overflow-hidden */
+}
+
+.eventid-content {
+  padding: 2rem; /* p-8 */
+}
+
+.eventid-title {
+  font-size: 1.875rem; /* text-3xl */
+  font-weight: bold; /* font-bold */
+  color: #1f2937; /* text-gray-900 */
+  margin-bottom: 1rem; /* mb-4 */
+}
+
+.eventid-detail-section {
+  margin-bottom: 1.5rem; /* mb-6 */
+}
+
+.eventid-detail-header {
+  font-size: 1.25rem; /* text-xl */
+  font-weight: 600; /* font-semibold */
+  color: #1f2937; /* text-gray-800 */
+  margin-bottom: 0.5rem; /* mb-2 */
+}
+
+.eventid-detail {
+  display: flex;
+  align-items: center;
+  color: #4b5563; /* text-gray-600 */
+}
+
+.eventid-detail-icon {
+  width: 1.25rem; /* w-5 */
+  height: 1.25rem; /* h-5 */
+  margin-right: 0.5rem; /* mr-2 */
+}
+
+.eventid-ticket-link {
+  display: flex;
+  align-items: center;
+  color: #3b82f6; /* text-blue-600 */
+  transition: color 0.2s; /* transition for hover */
+}
+
+.eventid-ticket-link:hover {
+  color: #1e40af; /* hover:text-blue-800 */
+}
+
+.eventid-textColor {
+  color: #4b5563;
+}
+
+.eventid-grid {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 1rem /* 16px */;
+  margin-bottom: 1.5rem /* 24px */;
+}
+
+@media (min-width: 768px) {
+  .eventid-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* this is the css for the location page */
+
+.locations-container {
+  min-height: 100vh; /* min-h-screen */
+}
+
+.locations-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  max-width: 105rem; /* max-w-[105rem] */
+  margin: 3rem auto; /* mt-12 */
+  width: 100%; /* w-full */
+}
+
+.locations-title {
+  font-size: 1.875rem; /* text-3xl */
+  font-weight: bold; /* font-bold */
+  color: white; /* text-gray-800 */
+  margin-bottom: 1.5rem; /* mb-6 */
+}
+
+.locations-search {
+  margin-bottom: 1.5rem; /* mb-6 */
+  position: relative; /* relative */
+}
+
+.locations-search-input {
+  width: 100%; /* w-full */
+  padding: 0.5rem 1rem; /* px-4 py-2 */
+  padding-left: 2.5rem; /* pl-10 */
+  padding-right: 1rem; /* pr-4 */
+  border-radius: 0.5rem; /* rounded-lg */
+  border: 1px solid #d1d5db; /* border-gray-300 */
+  outline: none; /* focus:outline-none */
+}
+
+.locations-search-input:focus {
+  ring: 2px solid #3b82f6; /* focus:ring-2 focus:ring-blue-500 */
+}
+
+.locations-search-icon {
+  position: absolute; /* absolute */
+  left: 0.75rem; /* left-3 */
+  top: 50%; /* top-1/2 */
+  transform: translateY(-50%); /* transform -translate-y-1/2 */
+  color: #9ca3af; /* text-gray-400 */
+}
+
+.locations-table-container {
+  background: white; /* bg-white */
+  border-radius: 0.5rem; /* rounded-lg */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* shadow */
+  overflow: hidden; /* overflow-hidden */
+}
+
+.locations-table {
+  width: 100%; /* w-full */
+}
+
+.locations-table-header {
+  background: #f3f4f6; /* bg-gray-100 */
+  color: #4b5563; /* text-gray-600 */
+  text-align: left; /* text-left */
+  text-transform: uppercase; /* uppercase */
+  font-size: 0.875rem; /* text-sm */
+}
+
+.locations-table-header th {
+  padding: 0.75rem 1rem; /* py-3 px-4 */
+  font-weight: 600; /* font-semibold */
+  text-align: center;
+}
+
+.locations-table-body {
+  border-top: 1px solid #4b5563; /* divide-y divide-gray-200 */
+}
+
+.locations-table-body tr {
+  transition: background 0.2s; /* hover:bg-gray-50 */
+}
+
+.locations-table-body tr:hover {
+  background: #f9fafb; /* hover:bg-gray-50 */
+}
+
+.locations-table-body td {
+  padding: 0.75rem 1rem; /* py-3 px-4 */
+  color: #4b5563;
+}
+
+.locations-favorite-icon {
+  color: #d1d5db; /* text-gray-300 */
+  transition: color 0.2s; /* Transition for hover effect */
+  cursor: pointer;
+}
+
+.locations-favorite-icon:hover {
+  color: #fbbf24; /* hover:text-yellow-400 */
+}
+
+.locations-no-results {
+  text-align: center; /* text-center */
+  margin-top: 1rem; /* mt-4 */
+  color: #4b5563; /* text-gray-600 */
 }
