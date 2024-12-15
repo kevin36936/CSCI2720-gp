@@ -4,6 +4,9 @@ import { useEffect } from "react";
 import Events from "./Events";
 import EventPage from "./EventId";
 import Location from "./Location";
+import Admin from "./Admin";
+import Map from "./Map";
+import Favorites from "./Favorites";
 import { useEventStore } from "../customHook/useEventStore";
 
 function Homepage({ user, setUser }) {
@@ -19,24 +22,35 @@ function Homepage({ user, setUser }) {
         "http://localhost:5000/getEventVenueInfo"
       );
       const venueData = await venueResponse.json();
-
       const combinedData = data.map((event) => {
-        const venue = venueData[event.venueid];
+        const venue = venueData.find((v) => v.id === event.venueId);
+
         return {
           ...event,
-          venuec: venue.venuec,
-          venuee: venue.venuee,
+          venue: venue.name,
           latitude: venue.latitude,
           longitude: venue.longitude,
         };
       });
 
+      const venueEventCounts = venueData.map((venue) => {
+        return {
+          ...venue,
+          count: combinedData.filter((event) => event.venue === venue.name)
+            .length,
+        };
+      });
+
       setEventData(combinedData);
-      setLocationData(venueData);
+      setLocationData(venueEventCounts);
     }
     fetchEventData();
   }, [setEventData, setLocationData]);
 
+  const handleLogout = () => {
+    setUser(null); // Clear user info on logout
+    localStorage.removeItem("token");
+  };
   // routing
   return (
     <Router>
@@ -45,6 +59,20 @@ function Homepage({ user, setUser }) {
         <Link to="/">Home</Link>
         <Link to="/events">Events</Link>
         <Link to="/locations">Locations</Link>
+        <Link to="/map">Map</Link>
+        <Link to="/favorites">Favorites</Link>
+        {user?.isAdmin && <Link to="/admin">Admin</Link>}
+        <div
+          style={{
+            position: "absolute",
+            right: 10,
+            display: "flex",
+            gap: "10px",
+          }}
+        >
+          <button onClick={() => handleLogout()}>Log Out</button>
+          <div>Username : {user.username}</div>
+        </div>
       </nav>
 
       {/* navbar come in pair with route */}
@@ -53,28 +81,26 @@ function Homepage({ user, setUser }) {
         <Route path="/events" element={<Events />} />
         <Route path="/events/:eventId" element={<EventPage />} />
         <Route path="/locations" element={<Location />} />
+        <Route path="/map" element={<Map />} />
+        <Route path="/admin" element={<Admin />} />
+        <Route path="/favorites" element={<Favorites />} />
       </Routes>
     </Router>
   );
 }
 
-const Home = ({ user, setUser }) => {
+const Home = ({ user }) => {
   return (
     <div>
       {/* original code below */}
       <h1>Welcome, {user?.username}!</h1>
       {user?.isAdmin ? (
         <div>
-          <p>You have admin permissions.</p>
-          {/* Add admin-specific actions here */}
-          <button onClick={() => alert("Performing admin action")}>
-            Admin Action
-          </button>
+          <p>You are logged in as an admin.</p>
         </div>
       ) : (
         <p>You are logged in as a regular user.</p>
       )}
-      <button onClick={() => setUser(null)}>Log Out</button>
     </div>
   );
 };

@@ -10,11 +10,9 @@ npm install cors express mongoose
 
 create two folders “backend” "frontend"
 
-
 IN “backend”:
 
 npm install dotenv body-parser
-
 
 In “frontend”:
 
@@ -30,14 +28,13 @@ create “Login.js” in “src” folder, copy from “/text/Login.js”
 
 Update App.js, copy from “/text/App.js”
 
-
 In “backend”:
 
 npm init -y
 
 create index.js, copy from “/text/index.js”
 
-“node index.js” in “backend”, “npm start” in “frontend/my-app/”
+“npm run dev” in “backend”, “npm start” in “frontend/my-app/”
 
 #Dataset
 

@@ -69,23 +69,23 @@ export default function Events() {
           <div
             key={index}
             className="event-card"
-            onClick={() => (window.location.href = `/events/${event.eventId}`)}
+            onClick={() => (window.location.href = `/events/${event.id}`)}
           >
             <div className="event-card-inner">
               <div className="event-card-inner2">
-                <h2 className="event-title">{event.titlee}</h2>
+                <h2 className="event-title">{event.title}</h2>
                 <div className="event-details">
                   <div className="event-detail">
                     <FontAwesomeIcon icon={faCalendar} className="icons" />
-                    <span>{event.predateE}</span>
+                    <span>{event.dateTime}</span>
                   </div>
                   <div className="event-detail">
                     <FontAwesomeIcon icon={faUsers} className="icons" />
-                    <span>{event.presenterorge}</span>
+                    <span>{event.presenter}</span>
                   </div>
                   <div className="event-detail">
                     <FontAwesomeIcon icon={faMapMarkerAlt} className="icons" />
-                    <span>{event.venuee}</span>
+                    <span>{event.venue}</span>
                   </div>
                 </div>
               </div>

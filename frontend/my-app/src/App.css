@@ -349,3 +349,183 @@
   margin-top: 1rem; /* mt-4 */
   color: #4b5563; /* text-gray-600 */
 }
+
+/* Admin.css */
+
+.admin-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.admin-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.admin-action-button {
+  padding: 10px 15px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.admin-action-button:hover {
+  background-color: #2980b9;
+}
+
+.admin-content {
+  border-radius: 5px;
+  padding: 20px;
+}
+
+@media (max-width: 600px) {
+  .admin-actions {
+    flex-direction: column;
+  }
+
+  .admin-action-button {
+    width: 100%;
+  }
+}
+
+.create-user-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.create-user-title {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.create-user-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.create-user-input {
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.create-user-button {
+  padding: 10px 15px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.create-user-button:hover {
+  background-color: #45a049;
+}
+
+@media (max-width: 480px) {
+  .create-user-container {
+    width: 90%;
+    padding: 15px;
+  }
+
+  .create-user-title {
+    font-size: 20px;
+  }
+
+  .create-user-input,
+  .create-user-button {
+    font-size: 14px;
+  }
+}
+
+.update-user-container {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.update-user-section {
+  margin-bottom: 30px;
+}
+
+.update-user-title {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.update-user-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.update-user-input {
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.update-user-button {
+  padding: 10px 15px;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.update-button {
+  background-color: #4caf50;
+}
+
+.update-button:hover {
+  background-color: #45a049;
+}
+
+.delete-button {
+  background-color: #f44336;
+}
+
+.delete-button:hover {
+  background-color: #d32f2f;
+}
+
+@media (max-width: 480px) {
+  .update-user-container {
+    width: 90%;
+    padding: 15px;
+  }
+
+  .update-user-title {
+    font-size: 20px;
+  }
+
+  .update-user-input,
+  .update-user-button {
+    font-size: 14px;
+  }
+}
