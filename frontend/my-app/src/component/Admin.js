@@ -10,16 +10,28 @@ export default function Admin() {
   return (
     <div className="admin-container">
       <div className="admin-actions">
-        <button className="admin-action-button" onClick={() => setCurrentAction("createUser")}>
+        <button
+          className="admin-action-button"
+          onClick={() => setCurrentAction("createUser")}
+        >
           Create user
         </button>
-        <button className="admin-action-button" onClick={() => setCurrentAction("updateUser")}>
+        <button
+          className="admin-action-button"
+          onClick={() => setCurrentAction("updateUser")}
+        >
           Update/Delete user
         </button>
-        <button className="admin-action-button" onClick={() => setCurrentAction("createEvent")}>
+        <button
+          className="admin-action-button"
+          onClick={() => setCurrentAction("createEvent")}
+        >
           Create event
         </button>
-        <button className="admin-action-button" onClick={() => setCurrentAction("updateEvent")}>
+        <button
+          className="admin-action-button"
+          onClick={() => setCurrentAction("updateEvent")}
+        >
           Update/Delete event
         </button>
       </div>

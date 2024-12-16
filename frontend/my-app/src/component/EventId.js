@@ -31,26 +31,31 @@ export default function EventPage() {
       <div className="h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-8 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto bg-white rounded-lg shadow-md overflow-hidden mt-12">
           <div className="p-8">
-            <h1 className="text-3xl font-bold text-gray-900 mb-4">Loading...</h1>
+            <h1 className="text-3xl font-bold text-gray-900 mb-4">
+              Loading...
+            </h1>
           </div>
         </div>
       </div>
     );
   }
 
-  //   if (!event && !isLoading) {
-  //     return (
-  //       <div className="h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-8 px-4 sm:px-6 lg:px-8">
-  //         <div className="max-w-6xl mx-auto bg-white rounded-lg shadow-md overflow-hidden mt-12">
-  //           <div className="p-8">
-  //             <h1 className="text-3xl font-bold text-gray-900 mb-4">
-  //               Event not found
-  //             </h1>
-  //           </div>
-  //         </div>
-  //       </div>
-  //     );
-  //   }
+  const handleBooking = async (id) => {
+    const username = localStorage.getItem("username");
+    try {
+      const response = await fetch(`http://localhost:5000/booking`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id, username }),
+      });
+      const data = await response.json();
+      alert(data.message);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
 
   return (
     <div className="eventid-container">
@@ -59,7 +64,10 @@ export default function EventPage() {
 
         <div className="eventid-detail-section">
           <div className="eventid-detail">
-            <FontAwesomeIcon icon={faCalendar} className="eventid-detail-icon" />
+            <FontAwesomeIcon
+              icon={faCalendar}
+              className="eventid-detail-icon"
+            />
             <span>{event?.dateTime}</span>
           </div>
           <div className="eventid-detail">
@@ -67,7 +75,10 @@ export default function EventPage() {
             <span>{event?.programTime}</span>
           </div>
           <div className="eventid-detail">
-            <FontAwesomeIcon icon={faMapMarkerAlt} className="eventid-detail-icon" />
+            <FontAwesomeIcon
+              icon={faMapMarkerAlt}
+              className="eventid-detail-icon"
+            />
             <span>{event?.venue}</span>
           </div>
         </div>
@@ -84,15 +95,24 @@ export default function EventPage() {
 
         <div className="eventid-grid">
           <div className="eventid-detail">
-            <FontAwesomeIcon icon={faExclamationTriangle} className="eventid-detail-icon" />
+            <FontAwesomeIcon
+              icon={faExclamationTriangle}
+              className="eventid-detail-icon"
+            />
             <span>Age Limit: {event?.ageLimit || "N/A"}</span>
           </div>
           <div className="eventid-detail">
-            <FontAwesomeIcon icon={faTicketAlt} className="eventid-detail-icon" />
+            <FontAwesomeIcon
+              icon={faTicketAlt}
+              className="eventid-detail-icon"
+            />
             <span>Price: {event?.price}</span>
           </div>
           <div className="eventid-detail">
-            <FontAwesomeIcon icon={faLanguage} className="eventid-detail-icon" />
+            <FontAwesomeIcon
+              icon={faLanguage}
+              className="eventid-detail-icon"
+            />
             <span>{event?.remarks || "N/A"}</span>
           </div>
           <div className="eventid-detail">
@@ -103,16 +123,26 @@ export default function EventPage() {
 
         <div className="eventid-space-y-2">
           <div className="eventid-detail">
-            <FontAwesomeIcon icon={faCalendar} className="eventid-detail-icon" />
+            <FontAwesomeIcon
+              icon={faCalendar}
+              className="eventid-detail-icon"
+            />
             <span>Sale Date: {event?.saleDate}</span>
           </div>
           <div className="eventid-detail">
-            <FontAwesomeIcon icon={faCalendar} className="eventid-detail-icon" />
+            <FontAwesomeIcon
+              icon={faCalendar}
+              className="eventid-detail-icon"
+            />
             <span>Submit Date: {event?.submitDate}</span>
           </div>
           <div className="eventid-ticket-link">
             <FontAwesomeIcon icon={faLink} className="eventid-detail-icon" />
-            <a href={event?.tagentUrl} target="_blank" rel="noopener noreferrer">
+            <a
+              href={event?.tagentUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               Ticket Purchase
             </a>
           </div>
@@ -121,6 +151,9 @@ export default function EventPage() {
             <a href={event?.url} target="_blank" rel="noopener noreferrer">
               Event Details
             </a>
+          </div>
+          <div style={{ color: "black" }}>
+            <button onClick={() => handleBooking(event.id)}>book event</button>
           </div>
         </div>
       </div>

@@ -1,9 +1,4 @@
-import {
-  useJsApiLoader,
-  GoogleMap,
-  Marker,
-  InfoWindow,
-} from "@react-google-maps/api";
+import { useJsApiLoader, GoogleMap, Marker, InfoWindow } from "@react-google-maps/api";
 import { useEventStore } from "../customHook/useEventStore";
 import { useState, useEffect } from "react";
 
@@ -29,9 +24,7 @@ export default function Map() {
 
   useEffect(() => {
     if (query && localLocationData[0] && !firstRender) {
-      const location = localLocationData.find(
-        (location) => location.id === Number(query)
-      );
+      const location = localLocationData.find((location) => location.id === Number(query));
       setFirstRender(true);
       setZoom(16);
       setCenter({ lat: location.latitude, lng: location.longitude });
@@ -51,9 +44,7 @@ export default function Map() {
   const handleMarkerClick = (marker) => {
     setZoom(13);
     const selectedLocation = shownLocations.filter(
-      (location) =>
-        location.latitude === marker.latitude &&
-        location.longitude === marker.longitude
+      (location) => location.latitude === marker.latitude && location.longitude === marker.longitude
     );
     setCenter({ lat: marker.latitude, lng: marker.longitude });
     setSelectedLocation(selectedLocation);
@@ -82,25 +73,31 @@ export default function Map() {
 
     setExactLocation((prevLocation) => ({
       ...prevLocation,
-      comment: [
-        ...prevLocation.comment,
-        { username: username, comment: comment },
-      ],
+      comment: [...prevLocation.comment, { username: username, comment: comment }],
     }));
     setComment("");
-    const response = await fetch("http://localhost:4001/updateLocation", {
+    const response = await fetch("http://localhost:5000/updateLocation", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        id: exactLocation.id,
-        username: username,
-        comment: comment,
-      }),
+      body: JSON.stringify({ id: exactLocation.id, username: username, comment: comment }),
     });
     const result = await response.json();
     console.log(result.message);
+  };
+
+  const handleFavoriteClick = async (id) => {
+    const username = localStorage.getItem("username");
+    const response = await fetch("http://localhost:5000/favorite", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id: id, username: username }),
+    });
+    const result = await response.json();
+    alert(result.message);
   };
 
   // Load Google Maps API
@@ -130,33 +127,20 @@ export default function Map() {
           <Marker
             key={location.id}
             position={{ lat: location.latitude, lng: location.longitude }}
-            onClick={() =>
-              handleMarkerClick({
-                latitude: location.latitude,
-                longitude: location.longitude,
-              })
-            } // Open InfoWindow on click
+            onClick={() => handleMarkerClick({ latitude: location.latitude, longitude: location.longitude })} // Open InfoWindow on click
           />
         ))}
 
         {/* InfoWindow */}
         {selectedLocation && (
           <InfoWindow
-            position={{
-              lat: selectedLocation[0].latitude,
-              lng: selectedLocation[0].longitude,
-            }}
+            position={{ lat: selectedLocation[0].latitude, lng: selectedLocation[0].longitude }}
             onCloseClick={() => setSelectedLocation(null) || setZoom(12)} // Close on click
           >
-            <div
-              style={{ background: "white", padding: "10px", color: "black" }}
-            >
+            <div style={{ background: "white", padding: "10px", color: "black" }}>
               {selectedLocation.map((location) => (
                 <div key={location.name}>
-                  <h3
-                    onClick={() => handleExactLocationClick(location)}
-                    style={{ cursor: "pointer", color: "blue" }}
-                  >
+                  <h3 onClick={() => handleExactLocationClick(location)} style={{ cursor: "pointer", color: "blue" }}>
                     {location.name}
                   </h3>
                   <p>Events Count: {location.count}</p>
@@ -170,10 +154,7 @@ export default function Map() {
         {exactLocation && (
           <div>
             <Marker
-              position={{
-                lat: exactLocation.latitude,
-                lng: exactLocation.longitude,
-              }}
+              position={{ lat: exactLocation.latitude, lng: exactLocation.longitude }}
               onClick={() => handleExactLocationClick(exactLocation)} // Open InfoWindow on click
             />
             <div
@@ -192,41 +173,26 @@ export default function Map() {
                   cursor: "pointer",
                   color: "blue",
                   position: "absolute",
-                  top: 10,
+                  top: 8,
                   right: 20,
                   zIndex: 1,
                   fontSize: 40,
                 }}
-                onClick={() =>
-                  setSelectedLocation(null) ||
-                  setExactLocation(null) ||
-                  setZoom(12)
-                }
+                onClick={() => setSelectedLocation(null) || setExactLocation(null) || setZoom(12)}
               >
                 X
               </div>
-              <div style={{ fontSize: 20, fontWeight: "bold", marginTop: 50 }}>
-                {exactLocation.name}
-              </div>
-              <div style={{ marginTop: 10, fontSize: 16 }}>
-                Events Count: {exactLocation.count}
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                }}
+              <button
+                style={{ position: "absolute", top: 20, left: 20, fontSize: 20 }}
+                onClick={() => handleFavoriteClick(exactLocation.id)}
               >
+                Add favorite
+              </button>
+              <div style={{ fontSize: 20, fontWeight: "bold", marginTop: 50 }}>{exactLocation.name}</div>
+              <div style={{ marginTop: 10, fontSize: 16 }}>Events Count: {exactLocation.count}</div>
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                 <div style={{ marginTop: 10, fontSize: 40 }}>User comment</div>
-                <div
-                  style={{
-                    border: "1px solid black",
-                    padding: 10,
-                    height: 200,
-                    width: "80%",
-                  }}
-                >
+                <div style={{ border: "1px solid black", padding: 10, height: 200, width: "80%" }}>
                   {!exactLocation.comment[0]
                     ? "No comment"
                     : exactLocation.comment.map((comment, index) => {

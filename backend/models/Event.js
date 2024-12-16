@@ -5,7 +5,7 @@ const eventSchema = new mongoose.Schema({
   title: { type: String, required: true }, // English title (<titlee>)
   dateTime: { type: String, required: true }, // Date and time in English (<predateE>)
   duration: { type: String }, // Duration in English (<progtimee>)
-  venueId: { type: Number, required: true }, // Venue ID (<venueid>)
+  venueId: { type: String, required: true }, // Venue ID (<venueid>)
   description: { type: String }, // Description in English (<desce>)
   presenter: { type: String }, // Presenter in English (<presenterorge>)
   ageLimit: { type: String }, // Age limit (<agelimite>)
@@ -16,6 +16,7 @@ const eventSchema = new mongoose.Schema({
   programTime: { type: String }, // Program time (<programtime>)
   tagentUrl: { type: String }, // Tagent URL (<tagenturl>)
   url: { type: String }, // URL (<url>)
+  like: { type: Number, default: 0 },
 });
 
 module.exports = mongoose.model("Event", eventSchema);

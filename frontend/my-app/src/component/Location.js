@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faStar } from "@fortawesome/free-solid-svg-icons";
 
 function Location() {
-  const { locationData } = useEventStore();
+  const { locationData, lightMode } = useEventStore();
   const [shownLocations, setShownLocations] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [maxDistance, setMaxDistance] = useState(4); // Default max distance in km
@@ -86,7 +86,12 @@ function Location() {
   return (
     <div className="locations-container">
       <div className="locations-content">
-        <h1 className="locations-title">Location Page</h1>
+        <h1
+          className="locations-title"
+          style={{ color: lightMode ? "black" : "white" }}
+        >
+          Location Page
+        </h1>
 
         {/* Search input */}
         <div className="locations-search">
@@ -106,7 +111,7 @@ function Location() {
             type="range"
             id="distance"
             min="0"
-            max="50" // Set max distance to 50 km (adjust as needed)
+            max="25" // Set max distance to 50 km (adjust as needed)
             value={maxDistance}
             onChange={(e) => setMaxDistance(Number(e.target.value))}
             className="locations-distance-input"

@@ -81,6 +81,7 @@ app.post("/login", async (req, res) => {
         programTime: event.progtimee,
         tagentUrl: event.tagenturle,
         url: event.urle,
+        like: 0,
       });
       await newEvent.save();
     });
@@ -202,6 +203,7 @@ app.post("/createUser", async (req, res) => {
       password: hashedPassword,
       isAdmin: isAdmin || false,
       favorites: [],
+      bookedEvents: [],
     });
     await user.save();
 
@@ -289,6 +291,122 @@ app.post("/favorite", async (req, res) => {
     }
 
     return res.json({ message: "Favorite added successfully" });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+app.post("/getFavorite", async (req, res) => {
+  try {
+    const { username } = req.body;
+    const user = await User.findOne({ username: username });
+    if (!user) {
+      return res.json({ message: "User does not exist" });
+    }
+    return res.json({ favorites: user.favorites });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+app.post("/unfavorite", async (req, res) => {
+  try {
+    const { id, username } = req.body;
+    const user = await User.findOne({ username: username });
+    if (!user) {
+      return res.json({ message: "User does not exist" });
+    }
+    await User.findOneAndUpdate(
+      { username: username },
+      { favorites: user.favorites.filter((favorite) => favorite !== id) }
+    );
+    return res.json({ message: "Favorite removed successfully" });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+app.post("/createEvent", async (req, res) => {
+  try {
+    const { eventData } = req.body;
+
+    const existingEvent = await Event.exists({ id: eventData.id });
+    if (existingEvent) {
+      return res.json({ message: "Event already exists" });
+    }
+
+    const newEvent = new Event({ ...eventData });
+    await newEvent.save();
+    return res.json({ message: "Event created successfully" });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+app.post("/getEventInfo", async (req, res) => {
+  try {
+    const { id } = req.body;
+    const response = await Event.find({ id: id });
+    console.log(response);
+    res.json(response);
+  } catch (error) {}
+});
+
+app.post("/updateEvent", async (req, res) => {
+  try {
+    const { eventData } = req.body;
+    await Event.findOneAndUpdate({ id: eventData.id }, { ...eventData });
+    return res.json({ message: "Event updated successfully" });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+app.post("/like", async (req, res) => {
+  try {
+    const { id } = req.body; // Get the event ID from the request body
+    const event = await Event.findOne({ id: id }); // Find the event by ID
+
+    if (!event) {
+      return res.status(404).json({ message: "Event does not exist" }); // Return 404 if event not found
+    }
+
+    // Increment the likes count
+    event.like += 1; // Increment likes count
+    await event.save(); // Save the updated event
+
+    return res.json({ message: "Event liked successfully", likes: event.like }); // Return success message and updated likes
+  } catch (error) {
+    console.error(error); // Log the error
+    return res.status(500).json({ message: "An error occurred" }); // Return error message
+  }
+});
+
+app.post("/booking", async (req, res) => {
+  try {
+    const { id, username } = req.body;
+    const user = await User.findOne({ username: username });
+    if (user.bookedEvents.includes(id)) {
+      return res.json({ message: "Event has already been booked" });
+    }
+    await User.findOneAndUpdate(
+      { username: username },
+      { bookedEvents: [...user.bookedEvents, id] }
+    );
+    return res.json({ message: "Event has been successfully booked" });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+app.post("/getBookedEvents", async (req, res) => {
+  try {
+    const { username } = req.body;
+    const user = await User.findOne({ username: username });
+    if (!user) {
+      return res.json({ message: "User does not exist" });
+    }
+    return res.json({ bookedEvents: user.bookedEvents });
   } catch (error) {
     console.log(error);
   }

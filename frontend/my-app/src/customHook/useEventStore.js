@@ -7,8 +7,10 @@ export const useEventStore = create((set) => ({
   // initial state
   eventData: [],
   locationData: [],
+  lightMode: false,
 
   // actions
   setEventData: (data) => set({ eventData: data }),
   setLocationData: (data) => set({ locationData: data }),
+  setLightMode: (data) => set({ lightMode: data }),
 }));
