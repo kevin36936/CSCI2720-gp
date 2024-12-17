@@ -97,16 +97,26 @@ function Location() {
         <div className="locations-search">
           <input
             type="text"
-            placeholder="Search locations or location venue count..."
+            placeholder="     Search locations or location venue count..."
             onChange={(e) => setSearchTerm(e.target.value)}
             className="locations-search-input"
           />
-          <FontAwesomeIcon icon={faSearch} className="locations-search-icon" />
+          {!searchTerm && (
+            <FontAwesomeIcon
+              icon={faSearch}
+              className="locations-search-icon"
+            />
+          )}
         </div>
 
         {/* Distance input */}
         <div className="locations-distance-slider">
-          <label htmlFor="distance">Max Distance: {maxDistance} km</label>
+          <label
+            htmlFor="distance"
+            style={{ color: lightMode ? "black" : "white" }}
+          >
+            Max Distance: {maxDistance} km
+          </label>
           <input
             type="range"
             id="distance"
@@ -119,8 +129,13 @@ function Location() {
         </div>
 
         {/* Sorting dropdown */}
-        <div className="locations-sorting">
-          <label htmlFor="sort">Sort by: </label>
+        <div className="locations-sorting" style={{ marginBottom: "15px" }}>
+          <label
+            htmlFor="sort"
+            style={{ color: lightMode ? "black" : "white" }}
+          >
+            Sort by:{" "}
+          </label>
           <select
             id="sort"
             value={sortOption}

@@ -11,7 +11,8 @@ import EventRecommendations from "./EventRecommendation";
 import { useEventStore } from "../customHook/useEventStore";
 
 function Homepage({ user, setUser }) {
-  const { setEventData, setLocationData, setLightMode, lightMode } = useEventStore();
+  const { setEventData, setLocationData, setLightMode, lightMode } =
+    useEventStore();
 
   useEffect(() => {
     if (lightMode) {
@@ -26,10 +27,14 @@ function Homepage({ user, setUser }) {
       const response = await fetch("http://localhost:5000/getEventInfo");
       const data = await response.json();
 
-      const venueResponse = await fetch("http://localhost:5000/getEventVenueInfo");
+      const venueResponse = await fetch(
+        "http://localhost:5000/getEventVenueInfo"
+      );
       const venueData = await venueResponse.json();
       const combinedData = data.map((event) => {
-        const venue = venueData.find((v) => Number(v.id) === Number(event.venueId));
+        const venue = venueData.find(
+          (v) => Number(v.id) === Number(event.venueId)
+        );
 
         return {
           ...event,
@@ -42,7 +47,8 @@ function Homepage({ user, setUser }) {
       const venueEventCounts = venueData.map((venue) => {
         return {
           ...venue,
-          count: combinedData.filter((event) => event.venue === venue.name).length,
+          count: combinedData.filter((event) => event.venue === venue.name)
+            .length,
         };
       });
 
@@ -62,7 +68,10 @@ function Homepage({ user, setUser }) {
       <div className="app-container">
         <nav className="navbar">
           <div className="navbar-left">
-            <button onClick={() => setLightMode(!lightMode)} className="theme-toggle">
+            <button
+              onClick={() => setLightMode(!lightMode)}
+              className="theme-toggle"
+            >
               {lightMode ? "🌙" : "☀️"}
             </button>
           </div>
@@ -187,11 +196,30 @@ const Home = ({ user }) => {
       setBookedEvents(data.bookedEvents);
     }
     fetchBookedEvents();
-  }, []);
+  }, [user.username]);
+
+  const handleUnbookEvent = async (eventId) => {
+    try {
+      await fetch("http://localhost:5000/unbookEvent", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username: user.username, eventId }),
+      });
+      setBookedEvents((prevBookedEvents) =>
+        prevBookedEvents.filter((id) => id !== eventId)
+      );
+    } catch (error) {
+      console.error("Error during unbooking:", error);
+    }
+  };
 
   return (
     <div className="home-container">
-      <h1 style={{ color: lightMode ? "black" : "white" }}>Welcome, {user?.username}!</h1>
+      <h1 style={{ color: lightMode ? "black" : "white" }}>
+        Welcome, {user?.username}!
+      </h1>
       {user?.isAdmin ? (
         <div className="user-status admin">You are logged in as an admin.</div>
       ) : (
@@ -202,7 +230,24 @@ const Home = ({ user }) => {
         {bookedEvents.map(
           (event) =>
             eventData.find((e) => e.id === event) && (
-              <div key={event} className="event-card">
+              <div
+                key={event}
+                className="event-card"
+                style={{ position: "relative" }}
+              >
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "0",
+                    right: "5px",
+                    cursor: "pointer",
+                    color: "red",
+                    fontSize: "20px",
+                  }}
+                  onClick={() => handleUnbookEvent(event)}
+                >
+                  X
+                </div>
                 <h3>{eventData.find((e) => e.id === event).title}</h3>
                 <p>{eventData.find((e) => e.id === event).dateTime}</p>
               </div>

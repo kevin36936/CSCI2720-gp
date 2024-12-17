@@ -280,8 +280,6 @@ app.post("/favorite", async (req, res) => {
       return res.json({ message: "Favorite already exists" });
     }
 
-    console.log(user);
-
     await User.findOneAndUpdate(
       { username: username },
       { favorites: [...user.favorites, id] }
@@ -347,7 +345,6 @@ app.post("/getEventInfo", async (req, res) => {
   try {
     const { id } = req.body;
     const response = await Event.find({ id: id });
-    console.log(response);
     res.json(response);
   } catch (error) {}
 });
@@ -407,6 +404,23 @@ app.post("/getBookedEvents", async (req, res) => {
       return res.json({ message: "User does not exist" });
     }
     return res.json({ bookedEvents: user.bookedEvents });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+app.post("/unbookEvent", async (req, res) => {
+  try {
+    const { eventId, username } = req.body;
+    const user = await User.findOne({ username: username });
+    if (!user) {
+      return res.json({ message: "User does not exist" });
+    }
+    await User.findOneAndUpdate(
+      { username: username },
+      { bookedEvents: user.bookedEvents.filter((event) => event !== eventId) }
+    );
+    return res.json({ message: "Event has been successfully unbooked" });
   } catch (error) {
     console.log(error);
   }

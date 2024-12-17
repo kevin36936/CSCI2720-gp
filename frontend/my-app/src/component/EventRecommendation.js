@@ -44,7 +44,7 @@ const EventRecommendations = () => {
 
   return (
     <div className="event-recommendations">
-      <h2>Find Event Recommendations</h2>
+      <h2 style={{fontSize: "2.5rem"}}>Find Event Recommendations</h2>
       <form onSubmit={handleSubmit} className="preferences-form">
         <div className="form-group">
           <label htmlFor="ageGroup">Age Group:</label>
@@ -121,19 +121,18 @@ const EventRecommendations = () => {
         .event-recommendations {
           width: 800px;
           margin: 0 auto;
-          padding: 20px;
           font-family: Arial, sans-serif;
         }
         .preferences-form {
-          background-color: #f0f0f0;
+          background-color: white;
           padding: 20px;
           border-radius: 8px;
           margin-bottom: 20px;
-          box-shadow: 1px 1px 10px 1px;
           margin-top: 20px;
         }
         .form-group {
           margin-bottom: 15px;
+          color: black;
         }
         label {
           display: block;
@@ -161,6 +160,7 @@ const EventRecommendations = () => {
           background-color: #fff;
           padding: 20px;
           border-radius: 8px;
+          color: black;
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         .event-item {
