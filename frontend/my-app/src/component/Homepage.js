@@ -193,7 +193,10 @@ const Home = ({ user }) => {
         body: JSON.stringify({ username: user.username }),
       });
       const data = await response.json();
-      setBookedEvents(data.bookedEvents);
+
+      if (data.bookedEvents) {
+        setBookedEvents(data.bookedEvents);
+      }
     }
     fetchBookedEvents();
   }, [user.username]);
