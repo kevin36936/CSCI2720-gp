@@ -4,16 +4,24 @@ project setup:
 
 git clone (github link here)
 
-IN “backend”:
+Navigate to the frontend/my-app directory.
+
+Create a new file named .env inside the frontend/my-app folder.
+
+Add the following line to the .env file:
+REACT_APP_GOOGLE_MAPS_API_KEY="YOUR_GOOGLE_MAPS_API_KEY"
+
+
+Then in “backend” folder:
 
 1. npm install
 
-to start: npm run dev
+2. npm run dev
 
-In “frontend/my-app”:
+3. MongoDB compass connect
 
-1. remember to go into my-app folder
+In “frontend/my-app”: (remember to go into my-app folder!!!)
 
-2. npm install
+1. npm install
 
-to start: npm start
+2. npm start
