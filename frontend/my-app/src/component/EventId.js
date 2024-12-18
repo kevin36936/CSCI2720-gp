@@ -153,7 +153,20 @@ export default function EventPage() {
             </a>
           </div>
           <div style={{ color: "black" }}>
-            <button onClick={() => handleBooking(event.id)}>book event</button>
+            <button
+              style={{
+                fontSize: "18px",
+                padding: "10px 20px",
+                borderRadius: "5px",
+                backgroundColor: "#4CAF50",
+                color: "white",
+                border: "none",
+                cursor: "pointer",
+              }}
+              onClick={() => handleBooking(event.id)}
+            >
+              Book Event
+            </button>
           </div>
         </div>
       </div>

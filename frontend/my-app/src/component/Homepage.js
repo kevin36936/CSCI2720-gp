@@ -228,8 +228,8 @@ const Home = ({ user }) => {
       ) : (
         <div className="user-status">You are logged in as a regular user.</div>
       )}
+      <h2 style={{ color: lightMode ? "black" : "white", marginBottom: "1rem" }}>Booked Events:</h2>
       <div className="booked-events">
-        <h2 style={{ color: lightMode ? "black" : "white" }}>Booked Events:</h2>
         {bookedEvents.map(
           (event) =>
             eventData.find((e) => e.id === event) && (
@@ -270,7 +270,7 @@ const Home = ({ user }) => {
         }
 
         .user-status {
-          background-color: #ecf0f1;
+          background-color: #3498db;
           padding: 1rem;
           border-radius: 4px;
           margin-bottom: 2rem;
@@ -281,6 +281,14 @@ const Home = ({ user }) => {
           color: white;
         }
 
+        .booked-events {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+          color: #2c3e50;
+          margin-bottom: 1rem;
+        }
+          
         .booked-events h2 {
           color: #2c3e50;
           margin-bottom: 1rem;
